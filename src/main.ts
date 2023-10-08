@@ -17,6 +17,7 @@ button.innerHTML = "☕";
 app.append(button);
 
 let counter: number = 0;
+const rateOfIncrease: number = 1; // increases by 1 cup of coffee per second
 
 const counterText = document.createElement("div");
 counterText.className = "buttonText";
@@ -28,7 +29,20 @@ app.addEventListener("click", function () {
   counterText.innerHTML = `${counter} Cups of Coffee`;
 });
 
-setInterval(function () {
-  counter += 1;
-  counterText.innerHTML = `${counter} Cups of Coffee`;
-}, 1000);
+let prevTimeStamp: number = 0;
+
+function continuousIncrement(timeStamp: number) {
+  const elapsedTime: number = timeStamp - prevTimeStamp;
+  const increment: number = rateOfIncrease * (elapsedTime / 1000);
+  counter += increment;
+  counterText.innerHTML = `${counter.toFixed(0)} Cups of Coffee`;
+  prevTimeStamp = timeStamp;
+  requestAnimationFrame(continuousIncrement);
+}
+
+requestAnimationFrame(continuousIncrement);
+
+// setInterval(function () {
+//   counter += 1;
+//   counterText.innerHTML = `${counter} Cups of Coffee`;
+// }, 1000);
