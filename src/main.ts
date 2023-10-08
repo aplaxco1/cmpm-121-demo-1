@@ -27,3 +27,8 @@ app.addEventListener("click", function () {
   counter += 1;
   counterText.innerHTML = `${counter} Cups of Coffee`;
 });
+
+setInterval(function () {
+  counter += 1;
+  counterText.innerHTML = `${counter} Cups of Coffee`;
+}, 1000);
