@@ -66,6 +66,14 @@ button:focus-visible {
   font-size: 5em;
 }
 
+.buttonText {
+  font-size: 2.5em;
+}
+
+.rateText {
+  font-size: 1.5em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

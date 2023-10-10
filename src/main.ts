@@ -18,6 +18,7 @@ app.append(button);
 
 let counter: number = 0;
 let rateOfIncrease: number = 0;
+const costFactor: number = 1.15;
 
 const counterText = document.createElement("div");
 counterText.className = "buttonText";
@@ -43,123 +44,109 @@ function automaticIncrement(timeStamp: number) {
 //   counterText.innerHTML = `${counter} Cups of Coffee`;
 // }, 1000);
 
-const buttons = document.createElement("container");
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+  purchased: number;
+  description: string;
+}
 
-let upgrade1Cost = 10;
-const upgrade1Rate = 0.1;
-let upgrade1Purchased = 0;
-let upgrade2Cost = 100;
-const upgrade2Rate = 2;
-let upgrade2Purchased = 0;
-let upgrade3Cost = 1000;
-const upgrade3Rate = 50;
-let upgrade3Purchased = 0;
+function itemButtonHTML(item: Item): string {
+  return (
+    `<font size=+2><b>` +
+    item.name +
+    `</b></font><br>` +
+    item.rate +
+    ` Cups/Second<br>Cost: ` +
+    item.cost.toFixed(2) +
+    ` Cups | Purchased: ` +
+    item.purchased +
+    `<br><font size=-2>` +
+    item.description +
+    "</font"
+  );
+}
 
-const upgradeButton1 = document.createElement("button");
-upgradeButton1.className = "upgradeButton";
-upgradeButton1.type = "button";
-upgradeButton1.innerHTML = `<font size=+2><b>Coffee Bean Grinder</b></font><br> ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
-  2,
-)} Cups | Purchased: ${upgrade1Purchased}<br><font size=-2>Grinds coffee beans a little faster than by hand.</font>`;
-upgradeButton1.disabled = true;
-
-const upgradeButton2 = document.createElement("button");
-upgradeButton2.className = "upgradeButton";
-upgradeButton2.type = "button";
-upgradeButton2.innerHTML = `<font size=+2><b>Pour-Over Filter</b></font><br> ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
-  2,
-)}Cups | Purchased: ${upgrade2Purchased}<br><font size=-2>Used to make pour-over coffee. Its a very methodical proccess.</font>`;
-upgradeButton2.disabled = true;
-
-const upgradeButton3 = document.createElement("button");
-upgradeButton3.className = "upgradeButton";
-upgradeButton3.type = "button";
-upgradeButton3.innerHTML = `<font size=+2><b>Espresso Machine</b></font><br> ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
-  2,
-)} Cups | Purchased: ${upgrade3Purchased}<br><font size=-2>Used to make espresso-based coffees, like lattes and cappuccinos.`;
-upgradeButton3.disabled = true;
-
-buttons.appendChild(upgradeButton1);
-buttons.appendChild(upgradeButton2);
-buttons.appendChild(upgradeButton3);
-app.append(buttons);
-
-function updateUpgrade1Button() {
-  upgradeButton1.innerHTML = `<font size=+2><b>Coffee Bean Grinder</b></font><br> ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
-    2,
-  )} Cups | Purchased: ${upgrade1Purchased}<br><font size=-2>Grinds coffee beans a little faster than by hand.</font>`;
-  if (counter >= upgrade1Cost) {
-    upgradeButton1.disabled = false;
+function updateItemButton(item: Item, itemButton: HTMLButtonElement): void {
+  itemButton.innerHTML = itemButtonHTML(item);
+  if (counter >= item.cost) {
+    itemButton.disabled = false;
   } else {
-    upgradeButton1.disabled = true;
+    itemButton.disabled = true;
   }
 }
 
-function updateUpgrade2Button() {
-  upgradeButton2.innerHTML = `<font size=+2><b>Pour-Over Filter</b></font><br> ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
-    2,
-  )}Cups | Purchased: ${upgrade2Purchased}<br><font size=-2>Used to make pour-over coffee. Its a very methodical proccess.</font>`;
-  if (counter >= upgrade2Cost) {
-    upgradeButton2.disabled = false;
-  } else {
-    upgradeButton2.disabled = true;
+function purchaseItem(item: Item) {
+  if (counter >= item.cost) {
+    counter -= item.cost;
+    rateOfIncrease += item.rate;
+    item.cost = costIncrease(item);
+    item.purchased += 1;
   }
 }
 
-function updateUpgrade3Button() {
-  upgradeButton3.innerHTML = `<font size=+2><b>Espresso Machine</b></font><br> ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
-    2,
-  )} Cups | Purchased: ${upgrade3Purchased}<br><font size=-2>Used to make espresso-based coffees, like lattes and cappuccinos.`;
-  if (counter >= upgrade3Cost) {
-    upgradeButton3.disabled = false;
-  } else {
-    upgradeButton3.disabled = true;
-  }
+function costIncrease(item: Item): number {
+  return item.cost * costFactor;
 }
 
-upgradeButton1.addEventListener("click", function () {
-  if (counter >= upgrade1Cost) {
-    counter -= upgrade1Cost;
-    rateOfIncrease += upgrade1Rate;
-    upgrade1Cost = priceIncrease(upgrade1Cost);
-    upgrade1Purchased += 1;
-  }
-});
+const availableItems: Item[] = [
+  {
+    name: "Coffee Bean Grinder",
+    cost: 10,
+    rate: 0.1,
+    purchased: 0,
+    description: "Grinds coffee beans a little faster than by hand.",
+  },
+  {
+    name: "Pour-Over Filter",
+    cost: 100,
+    rate: 2,
+    purchased: 0,
+    description:
+      "Used to make pour-over coffee. Its a very methodical proccess.",
+  },
+  {
+    name: "Espresso Machine",
+    cost: 1000,
+    rate: 50,
+    purchased: 0,
+    description:
+      "Used to make espresso-based coffees, like lattes and cappuccinos.",
+  },
+];
 
-upgradeButton2.addEventListener("click", function () {
-  if (counter >= upgrade2Cost) {
-    counter -= upgrade2Cost;
-    rateOfIncrease += upgrade2Rate;
-    upgrade2Cost = priceIncrease(upgrade2Cost);
-    upgrade2Purchased += 1;
-  }
-});
+const itemButtonsContainer = document.createElement("container");
+const itemButtons: HTMLButtonElement[] = [];
 
-upgradeButton3.addEventListener("click", function () {
-  if (counter >= upgrade3Cost) {
-    counter -= upgrade3Cost;
-    rateOfIncrease += upgrade3Rate;
-    upgrade3Cost = priceIncrease(upgrade3Cost);
-    upgrade3Purchased += 1;
-  }
-});
+for (const item of availableItems) {
+  const upgradeButton = document.createElement("button");
+  upgradeButton.className = "upgradeButton";
+  upgradeButton.type = "button";
+  upgradeButton.innerHTML = itemButtonHTML(item);
+
+  upgradeButton.addEventListener("click", () => {
+    purchaseItem(item);
+  });
+
+  itemButtonsContainer.append(upgradeButton);
+  itemButtons.push(upgradeButton);
+}
+
+app.append(itemButtonsContainer);
 
 const currentRateText = document.createElement("div");
 currentRateText.className = "rateText";
-currentRateText.innerHTML = `${rateOfIncrease.toFixed(
+currentRateText.innerHTML = `<br>${rateOfIncrease.toFixed(
   1,
 )} Cups of Coffee per Second`;
 app.append(currentRateText);
 
-function priceIncrease(price: number): number {
-  return price * 1.15;
-}
-
 // main animation loop
 function update() {
-  updateUpgrade1Button(); // update upgrade button (disabled/enabled)
-  updateUpgrade2Button();
-  updateUpgrade3Button();
+  for (let button = 0; button < availableItems.length; button += 1) {
+    updateItemButton(availableItems[button], itemButtons[button]); // update each button
+  }
   requestAnimationFrame(automaticIncrement); // update continuous growth
   counterText.innerHTML = `${counter.toFixed(0)} Cups of Coffee`; // update counter
   currentRateText.innerHTML = `${rateOfIncrease.toFixed(
@@ -168,4 +155,4 @@ function update() {
   requestAnimationFrame(update); // run update function
 }
 
-requestAnimationFrame(update);
+requestAnimationFrame(update); // start animation loop
