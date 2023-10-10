@@ -63,7 +63,7 @@ button:focus-visible {
 }
 
 .mainButton {
-  font-size: 3em;
+  font-size: 5em;
 }
 
 @media (prefers-color-scheme: light) {

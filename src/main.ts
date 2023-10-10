@@ -58,25 +58,25 @@ let upgrade3Purchased = 0;
 const upgradeButton1 = document.createElement("button");
 upgradeButton1.className = "upgradeButton";
 upgradeButton1.type = "button";
-upgradeButton1.innerHTML = `Upgrade A: ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
+upgradeButton1.innerHTML = `<font size=+2><b>Coffee Bean Grinder</b></font><br> ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
   2,
-)} | Purchased: ${upgrade1Purchased}`;
+)} Cups | Purchased: ${upgrade1Purchased}<br><font size=-2>Grinds coffee beans a little faster than by hand.</font>`;
 upgradeButton1.disabled = true;
 
 const upgradeButton2 = document.createElement("button");
 upgradeButton2.className = "upgradeButton";
 upgradeButton2.type = "button";
-upgradeButton2.innerHTML = `Upgrade B: ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
+upgradeButton2.innerHTML = `<font size=+2><b>Pour-Over Filter</b></font><br> ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
   2,
-)} | Purchased: ${upgrade2Purchased}`;
+)}Cups | Purchased: ${upgrade2Purchased}<br><font size=-2>Used to make pour-over coffee. Its a very methodical proccess.</font>`;
 upgradeButton2.disabled = true;
 
 const upgradeButton3 = document.createElement("button");
 upgradeButton3.className = "upgradeButton";
 upgradeButton3.type = "button";
-upgradeButton3.innerHTML = `Upgrade C: ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
+upgradeButton3.innerHTML = `<font size=+2><b>Espresso Machine</b></font><br> ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
   2,
-)} | Purchased: ${upgrade3Purchased}`;
+)} Cups | Purchased: ${upgrade3Purchased}<br><font size=-2>Used to make espresso-based coffees, like lattes and cappuccinos.`;
 upgradeButton3.disabled = true;
 
 buttons.appendChild(upgradeButton1);
@@ -85,9 +85,9 @@ buttons.appendChild(upgradeButton3);
 app.append(buttons);
 
 function updateUpgrade1Button() {
-  upgradeButton1.innerHTML = `Upgrade A: ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
+  upgradeButton1.innerHTML = `<font size=+2><b>Coffee Bean Grinder</b></font><br> ${upgrade1Rate} Cups/Second<br>Cost: ${upgrade1Cost.toFixed(
     2,
-  )} | Purchased: ${upgrade1Purchased}`;
+  )} Cups | Purchased: ${upgrade1Purchased}<br><font size=-2>Grinds coffee beans a little faster than by hand.</font>`;
   if (counter >= upgrade1Cost) {
     upgradeButton1.disabled = false;
   } else {
@@ -96,9 +96,9 @@ function updateUpgrade1Button() {
 }
 
 function updateUpgrade2Button() {
-  upgradeButton2.innerHTML = `Upgrade B: ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
+  upgradeButton2.innerHTML = `<font size=+2><b>Pour-Over Filter</b></font><br> ${upgrade2Rate} Cups/Second<br>Cost: ${upgrade2Cost.toFixed(
     2,
-  )} | Purchased: ${upgrade2Purchased}`;
+  )}Cups | Purchased: ${upgrade2Purchased}<br><font size=-2>Used to make pour-over coffee. Its a very methodical proccess.</font>`;
   if (counter >= upgrade2Cost) {
     upgradeButton2.disabled = false;
   } else {
@@ -107,9 +107,9 @@ function updateUpgrade2Button() {
 }
 
 function updateUpgrade3Button() {
-  upgradeButton3.innerHTML = `Upgrade C: ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
+  upgradeButton3.innerHTML = `<font size=+2><b>Espresso Machine</b></font><br> ${upgrade3Rate} Cups/Second<br>Cost: ${upgrade3Cost.toFixed(
     2,
-  )} | Purchased: ${upgrade3Purchased}`;
+  )} Cups | Purchased: ${upgrade3Purchased}<br><font size=-2>Used to make espresso-based coffees, like lattes and cappuccinos.`;
   if (counter >= upgrade3Cost) {
     upgradeButton3.disabled = false;
   } else {
