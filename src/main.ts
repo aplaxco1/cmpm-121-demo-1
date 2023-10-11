@@ -104,15 +104,31 @@ const availableItems: Item[] = [
     rate: 2,
     purchased: 0,
     description:
-      "Used to make pour-over coffee. Its a very methodical proccess.",
+      "Used to make pour-over coffee. Its a very slow, methodical proccess.",
   },
   {
-    name: "Espresso Machine",
+    name: "French Press",
     cost: 1000,
     rate: 50,
     purchased: 0,
     description:
-      "Used to make espresso-based coffees, like lattes and cappuccinos.",
+      "Used to make french press coffee. Fairly simple to use, and makes a decent amount of coffee.",
+  },
+  {
+    name: "Drip Coffee Maker",
+    cost: 100000,
+    rate: 1000,
+    purchased: 0,
+    description:
+      "A standard coffee machine. Makes a large pot of coffee all at once.",
+  },
+  {
+    name: "Espresso Machine",
+    cost: 1000000,
+    rate: 100000,
+    purchased: 0,
+    description:
+      "Used to make espresso-based coffees, like lattes and cappuccinos. Adds more variety to the coffee menu.",
   },
 ];
 
